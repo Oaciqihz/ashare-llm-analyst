@@ -13,11 +13,9 @@ def generate_html_index(root_directory, output_file="./public/index.html"):
     html_content = f"""
     <!DOCTYPE html>
     <html>
-    <head>
-        <title>Index of {root_directory}</title>
-    </head>
+    <head></head>
     <body>
-        <h1>Index of {root_directory}</h1>
+        <h1>总结报告</h1>
     """
 
     for date_folder in sorted(os.listdir(root_directory)):
