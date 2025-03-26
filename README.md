@@ -41,9 +41,12 @@ LLM_MODEL="deepseek-ai/DeepSeek-V3"
 
 1. 在`main.py`中设置要分析的股票代码：
 ```python
-stock_info = {
-    '股票名称': '股票代码',  # 例如 '上证指数': 'sh000001'
-}
+stock_info = [
+        {'name': '上证指数', 'code': 'sh000001'},
+        {'name': '航發動力', 'code': 'sh600893'},
+        {'name': '順絡電子', 'code': 'sz002138'},
+        {'name': '光華科技', 'code': 'sz002741'}
+    ]
 ```
 
 2. 运行主程序：
