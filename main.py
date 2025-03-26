@@ -618,20 +618,24 @@ class StockAnalyzer:
 
 
 if __name__ == "__main__":
-    stock_info = {
-        '上证指数': 'sh000001'
-        # '航發動力': 'sh600893'
-        # '順絡電子': 'sz002138',
-        # '光華科技': 'sz002741'
-    }
+    stock_info_list = [
+        {'name': '上证指数', 'code': 'sh000001'},
+        {'name': '航發動力', 'code': 'sh600893'},
+        {'name': '順絡電子', 'code': 'sz002138'},
+        {'name': '光華科技', 'code': 'sz002741'}
+    ]
     # Load environment variables from .env file
     load_dotenv()
 
-    analyzer = StockAnalyzer(
-        stock_info,
-        llm_api_key=os.getenv("LLM_API_KEY", ""),
-        llm_base_url=os.getenv("LLM_BASE_URL", ""),
-        llm_model=os.getenv("LLM_MODEL", "")
-    )
-    report_path = analyzer.run_analysis()
-    print(f"分析报告已生成: {report_path}")
+        # 遍歷每個股票，生成分析報告
+    for stock in stock_info_list:
+        stock_info = {stock['name']: stock['code']}
+        analyzer = StockAnalyzer(
+            stock_info,
+            llm_api_key=os.getenv("LLM_API_KEY", ""),
+            llm_base_url=os.getenv("LLM_BASE_URL", ""),
+            llm_model=os.getenv("LLM_MODEL", "")
+        )
+        current_date = datetime.now().strftime("%Y-%m-%d")
+        report_path = analyzer.run_analysis(output_path=f"public/export/{current_date}/{stock['name']}_{current_date}.html")
+        print(f"分析報告已生成: {report_path}")

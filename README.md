@@ -29,31 +29,12 @@ Ashare-LLM-Analyst 是一个A股市场的技术分析工具，通过[Ashare](htt
 pip install pandas numpy matplotlib pytz
 ```
 
-2. 配置大语言模型API信息（两种方式）： 方式一：使用环境变量（推荐）
+2. 配置大语言模型API信息：
 ```bash
-# Linux/Mac
-export LLM_API_KEY="your_api_key_here"
-export LLM_BASE_URL="https://api.deepseek.com"  # 或其他LLM服务提供商的API地址
-export LLM_MODEL="deepseek-chat"  # 使用的模型名称
-
-# Windows (命令提示符)
-set LLM_API_KEY=your_api_key_here
-set LLM_BASE_URL=https://api.deepseek.com
-set LLM_MODEL=deepseek-chat
-
-# Windows (PowerShell)
-$env:LLM_API_KEY="your_api_key_here"
-$env:LLM_BASE_URL="https://api.deepseek.com"
-$env:LLM_MODEL="deepseek-chat"
-```
-方式二：直接在代码中设置
-```python
-analyzer = StockAnalyzer(
-    stock_info, 
-    llm_api_key="your_api_key_here",
-    llm_base_url="https://api.deepseek.com",
-    llm_model="deepseek-chat"
-)
+// .env 配置
+LLM_API_KEY=""
+LLM_BASE_URL="https://api.siliconflow.cn/v1"
+LLM_MODEL="deepseek-ai/DeepSeek-V3"
 ```
 
 ### 运行分析
