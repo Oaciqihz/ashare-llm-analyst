@@ -12,6 +12,7 @@ import numpy as np
 import Ashare as as_api
 import MyTT as mt
 from llm import LLMAnalyzer
+from dotenv import load_dotenv
 
 
 def generate_trading_signals(df):
@@ -619,7 +620,18 @@ class StockAnalyzer:
 if __name__ == "__main__":
     stock_info = {
         '上证指数': 'sh000001'
+        # '航發動力': 'sh600893'
+        # '順絡電子': 'sz002138',
+        # '光華科技': 'sz002741'
     }
-    analyzer = StockAnalyzer(stock_info)
+    # Load environment variables from .env file
+    load_dotenv()
+
+    analyzer = StockAnalyzer(
+        stock_info,
+        llm_api_key=os.getenv("LLM_API_KEY", ""),
+        llm_base_url=os.getenv("LLM_BASE_URL", ""),
+        llm_model=os.getenv("LLM_MODEL", "")
+    )
     report_path = analyzer.run_analysis()
     print(f"分析报告已生成: {report_path}")
