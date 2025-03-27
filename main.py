@@ -491,11 +491,15 @@ class StockAnalyzer:
         current_time = datetime.now(tz).strftime('%Y年%m月%d日 %H时%M分%S秒')
 
         stock_contents = []
+        report_title = ""  # 用於存儲報告的標題
         for code in self.stock_codes:
             if code in self.data:
                 analysis_data = self.generate_analysis_data(code)
                 chart_base64 = self.plot_analysis(code)
                 stock_name = self.get_stock_name(code)
+
+                # 設置報告的標題
+                report_title = f"{stock_name} ({code}) 分析报告"
 
                 # 生成基础数据部分的HTML
                 basic_data_html = f"""
@@ -596,7 +600,8 @@ class StockAnalyzer:
         html_content = template.substitute(
             styles=css_content,
             generate_time=current_time,
-            content='\n'.join(stock_contents)
+            content='\n'.join(stock_contents),
+            title=report_title
         )
         return html_content
 
@@ -619,10 +624,20 @@ class StockAnalyzer:
 
 if __name__ == "__main__":
     stock_info_list = [
-        {'name': '上证指数', 'code': 'sh000001'},
-        {'name': '航發動力', 'code': 'sh600893'},
-        {'name': '順絡電子', 'code': 'sz002138'},
-        {'name': '光華科技', 'code': 'sz002741'}
+        # {'name': '上证指数', 'code': 'sh000001'},
+        # {'name': '順絡電子', 'code': 'sz002138'},
+        # {'name': '光華科技', 'code': 'sz002741'}
+        # {'name': '華東數控', 'code': 'sz002248'},
+        # {'name': '回天新材', 'code': 'sz300041'}
+        # {'name': '航發動力', 'code': 'sh600893'},
+        # {'name': '中核科技', 'code': 'sz000777'},
+        # {'name': '航天科技', 'code': 'sz000777'},
+        # {'name': '大族激光', 'code': 'sz002008'},
+        # {'name': '航天彩虹', 'code': 'sz002389'},
+        # {'name': '高德紅外', 'code': 'sz002414'},
+        # {'name': '海格通信', 'code': 'sz002465'},
+        # {'name': '卓勝微', 'code': 'sz300782'},
+        
     ]
     # Load environment variables from .env file
     load_dotenv()
