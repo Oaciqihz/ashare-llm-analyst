@@ -14,6 +14,8 @@ import MyTT as mt
 from llm import LLMAnalyzer
 from dotenv import load_dotenv
 
+import time
+
 
 def generate_trading_signals(df):
     """生成交易信号和建议"""
@@ -624,8 +626,8 @@ class StockAnalyzer:
 
 if __name__ == "__main__":
     stock_info_list = [
-        # {'name': '上证指数', 'code': 'sh000001'},
-        # {'name': '順絡電子', 'code': 'sz002138'},
+        {'name': '上证指数', 'code': 'sh000001'},
+        {'name': '順絡電子', 'code': 'sz002138'},
         # {'name': '光華科技', 'code': 'sz002741'}
         # {'name': '華東數控', 'code': 'sz002248'},
         # {'name': '回天新材', 'code': 'sz300041'}
@@ -643,7 +645,7 @@ if __name__ == "__main__":
     load_dotenv()
 
         # 遍歷每個股票，生成分析報告
-    for stock in stock_info_list:
+    for index, stock in enumerate(stock_info_list):
         stock_info = {stock['name']: stock['code']}
         analyzer = StockAnalyzer(
             stock_info,
@@ -654,3 +656,7 @@ if __name__ == "__main__":
         current_date = datetime.now().strftime("%Y-%m-%d")
         report_path = analyzer.run_analysis(output_path=f"public/export/{current_date}/{stock['name']}_{current_date}.html")
         print(f"分析報告已生成: {report_path}")
+        # 如果不是最後一個股票，等待30秒
+        if index < len(stock_info_list) - 1:
+            time.sleep(60)
+            print(f"開始等待: {report_path}")
